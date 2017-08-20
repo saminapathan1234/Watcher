@@ -3,6 +3,7 @@ var http      =     require('http').Server(app);
 var io        =     require("socket.io")(http);
 var fs   = require('fs');
 var filelocation = process.argv[2]
+var noOfLines = process.argv[3] || 10 ; 
 var chokidar = require('chokidar');
 app.get("/",function(req,res){
     res.sendFile(__dirname + '/index.html');
@@ -12,12 +13,16 @@ io.on('connection', function(client) {
     
     client.on('join', function(data) {
         console.log(data);
-   
     chokidar.watch(filelocation, { ignored: /[\/\\]\./ }).on('all', function (event, path) {
-         console.log(path +" file has been changed");
-        var file = fs.readFileSync(filelocation);
-        console.log('File content at : ' + new Date() + ' is \n' + file);
-        client.emit('messages', path +" file has been changed \n, File content at :" + new Date() + ' is \n' + file);
+         var file = fs.readFileSync(filelocation).toString().split('\n');
+         var filearr=[];  
+         for(var i=file.length-noOfLines; i<file.length;i++)
+          {
+             if(file[i])
+             filearr.push(file[i])
+           }
+             console.log(filearr)
+             client.emit('messages', filearr);
      
  });
 

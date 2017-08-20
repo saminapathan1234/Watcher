@@ -11,12 +11,18 @@
     socket.emit('join', 'Hello World from client');
  });
   socket.on('messages', function(data) {
-                                            $('#Changes').append($('<li></li>').text(data));
-        });
+                             var text1 = '<br><b>============================================</b><br>'
+                             var str='<p>';
+                               for (var i in data)
+                               { 
+                                str = str +data[i]+'<br>'  
+                               }
+                             str=str+'</p>'
+                             $('#Changes').append($(text1+str));
+        });     
 </script>
  <div>
       Changes: <ul id="Changes"></ul>
-
 <br />
       </div>  
     </body>
