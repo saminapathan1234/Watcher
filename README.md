@@ -3,7 +3,7 @@
 2. So , the watch.js file is the node server code for it.
 3. Dependencies:Node installed on server , server runs on port 8080 so , port to be open and unused , a dummy filepath to be given as an argument.
 4. Steps :
-   * Open a terminal and run following command : node watch.js filename.
+   * Open a terminal and run following command : node watch.js filename noOfLinesToTail(default 10).
    * Open a browser and url as localhost:8080
    * Make changes to the file specified and look for the updates in the browser.
 
